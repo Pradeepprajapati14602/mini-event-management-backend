@@ -1,13 +1,13 @@
 # Mini Event Management System Backend
 
-This is the backend for the Mini Event Management System, built using Laravel and PostgreSQL.
+Welcome to the backend of the Mini Event Management System, built with Laravel and PostgreSQL. This project is designed to manage events and attendees efficiently.
 
 ## Features
 
 - **Event Management**: Create, list, and manage events.
 - **Attendee Registration**: Register attendees for specific events.
 - **Attendee Listing**: View attendees for a specific event with pagination.
-- **Swagger Documentation**: API documentation for all endpoints.
+- **API Documentation**: Swagger documentation for all endpoints.
 
 ## Getting Started
 
