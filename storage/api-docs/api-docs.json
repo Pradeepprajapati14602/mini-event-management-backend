@@ -1,0 +1,205 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Event Management System API",
+        "description": "API documentation for the Event Management System",
+        "contact": {
+            "email": "support@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/events/{event_id}/register": {
+            "post": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "Register an attendee for an event",
+                "description": "Registers an attendee for a specific event, prevents overbooking and duplicate registrations.",
+                "operationId": "94eab20700f54d57390b8e10cd7920df",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Attendee registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Attendee registered successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error or overbooking",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Event is fully booked"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/events/{event_id}/attendees": {
+            "get": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "List all attendees for an event",
+                "description": "Returns all registered attendees for a specific event.",
+                "operationId": "62f5745b2e2414a270efe0044b72995c",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of attendees",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "john.doe@example.com"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/events": {
+            "get": {
+                "summary": "List all upcoming events",
+                "operationId": "6d8b6526460b262f52a64b734c86e021",
+                "responses": {
+                    "200": {
+                        "description": "List of events"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new event",
+                "operationId": "26fc9153a1b63d68161c940df9168e0c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "location",
+                                    "start_time",
+                                    "end_time",
+                                    "max_capacity"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "start_time": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "end_time": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "max_capacity": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Event created successfully"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Attendees",
+            "description": "Attendees"
+        }
+    ]
+}
